@@ -1,0 +1,4 @@
+Handle parse errors
+Put a limit on file length
+Add icons
+Download customized modernizr

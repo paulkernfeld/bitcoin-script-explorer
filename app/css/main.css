@@ -1,0 +1,17 @@
+/* Copyright 2014 Paul Kernfeld. This file is part of bitcoin-script-explorer,
+ which is licensed under the GNU GPL v3. See LICENSE for details. */
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    word-wrap: break-word;
+}
+
+.invalid {
+    background-color: #ffb0b0;
+}
+
+.active {
+    background-color: #ffb0ff;
+}
+

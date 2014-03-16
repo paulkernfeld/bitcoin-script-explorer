@@ -1,0 +1,8 @@
+tmp
+.DS_Store
+.nrepl-port
+.lein-repl-history
+.lein-failures
+target
+app/js/cljs
+upload.sh

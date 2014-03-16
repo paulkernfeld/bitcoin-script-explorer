@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<!-- Copyright 2014 Paul Kernfeld. This file is part of bitcoin-script-explorer,
+which is licensed under the GNU GPL v3. See LICENSE for details. -->
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Bitcoin Script Explorer</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <h1>Bitcoin Script Explorer</h1>
+
+      
+	  <div class="row">
+		<button type="button" class="btn btn-default op active">Preset 1</button>
+	  </div>
+	  <div class="row">
+		<form class="form-horizontal" role="form">
+          <div class="form-group">
+			<label for="inputPubKey" class="col-md-2 control-label">scriptPubKey</label>
+			<div class="col-md-10">
+              <textarea id="inputPubKey" class="form-control" ng-pattern="/^([0-9A-Fa-f][0-9A-Fa-f])*$/" wrap="hard">483045022074f35af390c41ef1f5395d11f6041cf55a6d7dab0acdac8ee746c1f2de7a43b3022100b3dc3d916b557d378268a856b8f9a98b9afaf45442f5c9d726fce343de835a58012102c34538fc933799d972f55752d318c0328ca2bacccd5c7482119ea9da2df70a2f</textarea>
+			</div>
+          </div>
+          <div class="form-group">
+			<label for="inputScriptSig" class="col-md-2 control-label">scriptSig</label>
+			<div class="col-md-10">
+              <textarea id="inputScriptSig" class="form-control" ng-pattern="/^([0-9A-Fa-f][0-9A-Fa-f])*$/" wrap="hard">76a914000011112222333344445555666677778888999988ac</textarea>
+			</div>
+          </div>
+		</form>
+
+		<div class="row">
+		  <p><a id="advanced-options-toggle" href="#">Advanced Options <span id="advanced-options-glyphicon" class="glyphicon glyphicon-collapse-down"></span></a></p>
+		  <div id="advanced-options" style="display: none;">
+			<p>bunch</p>
+			<p>of</p>
+			<p>stuff</p>
+		  </div>
+		</div>
+
+		<div id="parse-alert" class="alert alert-danger" style="display: none;">
+		  Parse error goes here
+		</div>
+	  </div>
+
+	  <div class="row">
+		<div class="col-md-6">
+		  <h2>State</h2>
+		  <div id="state">
+		  </div>
+		</div>
+		<div class="col-md-6">
+		  <h2>Script</h2>
+		  <div>
+			<div class="row">
+			  Click here to return to the initial state
+			</div>
+		  </div>
+		  <div id="pubKeyOps">
+		  </div>
+		</div>
+	  </div>
+
+      <footer>
+        <p>Bitcoin Script Explorer</p>
+      </footer>
+    </div> <!-- /container -->       
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.js"><\/script>')</script>
+      
+    <script src="js/vendor/bootstrap.min.js"></script>
+      
+    <script src="js/cljs/main.js"></script>
+
+    <script src="js/main.js"></script>
+    
+    <script>
+      var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+      g.src='//www.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>
+  </body>
+</html>
