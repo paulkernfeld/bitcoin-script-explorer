@@ -1,4 +1,6 @@
+Show actual hex values of ops
 Handle parse errors
 Put a limit on file length
+Enable up/down to move through script
 Add icons
 Download customized modernizr

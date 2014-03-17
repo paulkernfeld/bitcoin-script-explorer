@@ -7,6 +7,32 @@ body {
     word-wrap: break-word;
 }
 
+div.section {
+	padding: 15px;
+} 
+.form-horizontal .form-group {
+	margin-left: -15px;
+	margin-right: -15px;
+}
+
+.program-hex {
+	color: #20b020;
+}
+
+#advanced-options {
+	height: 0px;
+	overflow: hidden;
+    transition: height 0.05s;
+    -moz-transition: height 0.05s; /* Firefox 4 */
+    -webkit-transition: height 0.05s; /* Safari and Chrome */
+    -o-transition: height 0.05s; /* Opera */
+}
+
+.op {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
 .invalid {
     background-color: #ffb0b0;
 }

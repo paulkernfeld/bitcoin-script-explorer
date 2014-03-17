@@ -48,7 +48,9 @@ var parseToControl = function() {
   $.each(ops, function(index, op) {
     var newButton = $(
       '<div class="op row">' +
+        '<span class="program-hex">' +
         'B7' +
+        '</span>' +
         '<span>' +
         op.string +
         '</span>' +
@@ -94,14 +96,17 @@ $("#inputScriptSig").on(events, function() {
 
 parseToControl();
 
+var advancedOptionsShowing = false;
 $("#advanced-options-toggle").click(function() {
-  $("#advanced-options").toggle();
+  advancedOptionsShowing = !advancedOptionsShowing;
 
-  if ($("#advanced-options-glyphicon").hasClass("glyphicon-collapse-down")) {
+  if (advancedOptionsShowing) {
     $("#advanced-options-glyphicon").removeClass("glyphicon-collapse-down");
     $("#advanced-options-glyphicon").addClass("glyphicon-collapse-up");
+    $("#advanced-options").height("80px");
   } else {
     $("#advanced-options-glyphicon").removeClass("glyphicon-collapse-up");
     $("#advanced-options-glyphicon").addClass("glyphicon-collapse-down");
+    $("#advanced-options").height("0px");
   }
 });

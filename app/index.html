@@ -15,7 +15,8 @@ which is licensed under the GNU GPL v3. See LICENSE for details. -->
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootflat.min.css">
     <link rel="stylesheet" href="css/main.css">
 
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -30,7 +31,7 @@ which is licensed under the GNU GPL v3. See LICENSE for details. -->
       <h1>Bitcoin Script Explorer</h1>
 
       
-	  <div class="row">
+	  <div class="row section">
 		<button type="button" class="btn btn-default op active">Preset 1</button>
 	  </div>
 	  <div class="row">
@@ -38,20 +39,20 @@ which is licensed under the GNU GPL v3. See LICENSE for details. -->
           <div class="form-group">
 			<label for="inputPubKey" class="col-md-2 control-label">scriptPubKey</label>
 			<div class="col-md-10">
-              <textarea id="inputPubKey" class="form-control" ng-pattern="/^([0-9A-Fa-f][0-9A-Fa-f])*$/" wrap="hard">483045022074f35af390c41ef1f5395d11f6041cf55a6d7dab0acdac8ee746c1f2de7a43b3022100b3dc3d916b557d378268a856b8f9a98b9afaf45442f5c9d726fce343de835a58012102c34538fc933799d972f55752d318c0328ca2bacccd5c7482119ea9da2df70a2f</textarea>
+              <textarea id="inputPubKey" class="form-control program-hex" ng-pattern="/^([0-9A-Fa-f][0-9A-Fa-f])*$/" wrap="hard">483045022074f35af390c41ef1f5395d11f6041cf55a6d7dab0acdac8ee746c1f2de7a43b3022100b3dc3d916b557d378268a856b8f9a98b9afaf45442f5c9d726fce343de835a58012102c34538fc933799d972f55752d318c0328ca2bacccd5c7482119ea9da2df70a2f</textarea>
 			</div>
           </div>
           <div class="form-group">
 			<label for="inputScriptSig" class="col-md-2 control-label">scriptSig</label>
 			<div class="col-md-10">
-              <textarea id="inputScriptSig" class="form-control" ng-pattern="/^([0-9A-Fa-f][0-9A-Fa-f])*$/" wrap="hard">76a914000011112222333344445555666677778888999988ac</textarea>
+              <textarea id="inputScriptSig" class="form-control program-hex" ng-pattern="/^([0-9A-Fa-f][0-9A-Fa-f])*$/" wrap="hard">76a914000011112222333344445555666677778888999988ac</textarea>
 			</div>
           </div>
 		</form>
 
-		<div class="row">
+		<div>
 		  <p><a id="advanced-options-toggle" href="#">Advanced Options <span id="advanced-options-glyphicon" class="glyphicon glyphicon-collapse-down"></span></a></p>
-		  <div id="advanced-options" style="display: none;">
+		  <div id="advanced-options">
 			<p>bunch</p>
 			<p>of</p>
 			<p>stuff</p>
@@ -64,12 +65,12 @@ which is licensed under the GNU GPL v3. See LICENSE for details. -->
 	  </div>
 
 	  <div class="row">
-		<div class="col-md-6">
+		<div class="col-md-6 section">
 		  <h2>State</h2>
 		  <div id="state">
 		  </div>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-6 section">
 		  <h2>Script</h2>
 		  <div>
 			<div class="row">
