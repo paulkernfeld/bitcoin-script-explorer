@@ -5,15 +5,21 @@
 
 var bse = paulkernfeld.bse;
 
+// Logical state
 var states;
 var script;
+var currentState;
 
-var scriptSet = function(index) {
+// Change where we are in the program
+var setCurrentState = function(index) {
+  currentState = index;
+
+  $(".op").removeClass("active");
+  $(".op." + index).addClass("active");
+
   $("#state").empty();
 
   var state = states[index];
-
-  console.log(states, state, index);
 
   for (var s in state) {
     var newStackItem = $(
@@ -21,7 +27,6 @@ var scriptSet = function(index) {
         state[s] +
         '</div>'
     );
-    console.log(newStackItem);
     $("#state").append(newStackItem);
   }
 };
@@ -47,7 +52,7 @@ var parseToControl = function() {
 
   $.each(ops, function(index, op) {
     var newButton = $(
-      '<div class="op row">' +
+      '<div class="op row ' + (index + 1) + '">' +
         '<span class="program-hex">' +
         'B7' +
         '</span>' +
@@ -60,10 +65,7 @@ var parseToControl = function() {
     $("#pubKeyOps").append(newButton);
 
     newButton.click(function(eventData) {
-      console.log(index);
-      $(".op").removeClass("active");
-      newButton.addClass("active");
-      scriptSet(index + 1);
+      setCurrentState(index + 1);
     });
   });
 };
@@ -94,7 +96,25 @@ $("#inputScriptSig").on(events, function() {
   }
 });
 
+$(document).keypress(function(eventObject) {
+  // K to move up
+  if (eventObject.keyCode == 107) {
+    if (currentState > 0) {
+      setCurrentState(currentState - 1);
+    }
+  }
+
+  // J to move down
+  if (eventObject.keyCode == 106) {
+    if (currentState < states.length - 1) {
+      setCurrentState(currentState + 1);
+    }
+  }
+});
+
+// Initialize
 parseToControl();
+setCurrentState(0);
 
 var advancedOptionsShowing = false;
 $("#advanced-options-toggle").click(function() {
