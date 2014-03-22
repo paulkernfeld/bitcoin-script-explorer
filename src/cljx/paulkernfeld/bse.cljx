@@ -104,19 +104,8 @@
 (defn execute-full [ops]
   (execute ops (State. [] "unfinished")))
 
-;; good@
-;;(defn js-stack [stack]
-  ;;(map (fn [frame] [[[[(apply list frame)]]]]) stack))
-
-;;good js
-;;#+cljs (defn js-stack [stack]
-;;        (array (map (fn [frame] (apply array frame)) stack)))
-
 #+cljs (defn js-stack [stack]
         (apply array (map (fn [frame] (apply array frame)) stack)))
-
-;;#+cljs (defn execute-js [parsed]
-;;         (apply array (map (fn [stack] (js-stack (:stack stack))) (execute-full parsed))))
 
 #+cljs (defn execute-js [parsed]
          (apply array (map (fn [stack] (js-stack (:stack stack))) (execute-full parsed))))
