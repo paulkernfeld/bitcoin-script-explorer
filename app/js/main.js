@@ -8,7 +8,8 @@ var bse = paulkernfeld.bse;
 // Logical state
 var states;
 var script;
-var currentState;
+var currentState = 0
+var broken = false;
 
 // Change where we are in the program
 var setCurrentState = function(index) {
@@ -23,8 +24,10 @@ var setCurrentState = function(index) {
 
   for (var s in state) {
     var newStackItem = $(
-      '<div class="row">' +
+      '<div class="row frame">' +
+        '<span class="program-hex">' +
         state[s] +
+        '</span>' +
         '</div>'
     );
     $("#state").append(newStackItem);
@@ -37,11 +40,16 @@ var parseToControl = function() {
   try {
     script = bse.parse_full(bse.from_hex(getCombinedScript()));
   } catch (err) {
+    broken = true;
     $("#parse-alert").show().text(err.stack);
     console.log(err.stack);
     $("#pubKeyOps").addClass("invalid");
+    $("#parse-alert").height("80px");
     return;
   }
+  broken = false;
+
+  $("#parse-alert").height("0%");
 
   // Script was parsed successfully, let's proceed
   ops = bse.parse_js(script);
@@ -52,7 +60,7 @@ var parseToControl = function() {
 
   $.each(ops, function(index, op) {
     var newButton = $(
-      '<div class="op row ' + (index + 1) + '">' +
+      '<div class="op row frame ' + (index + 1) + '">' +
         '<span class="program-hex">' +
         'B7' +
         '</span>' +
@@ -65,9 +73,12 @@ var parseToControl = function() {
     $("#pubKeyOps").append(newButton);
 
     newButton.click(function(eventData) {
+      if (broken) { return; }
       setCurrentState(index + 1);
     });
   });
+
+  setCurrentState(currentState);
 };
 
 var getCombinedScript = function() {
@@ -97,6 +108,10 @@ $("#inputScriptSig").on(events, function() {
 });
 
 $(document).keypress(function(eventObject) {
+  if (broken) {
+    return;
+  }
+
   // K to move up
   if (eventObject.keyCode == 107) {
     if (currentState > 0) {
@@ -114,7 +129,6 @@ $(document).keypress(function(eventObject) {
 
 // Initialize
 parseToControl();
-setCurrentState(0);
 
 var advancedOptionsShowing = false;
 $("#advanced-options-toggle").click(function() {
@@ -123,10 +137,11 @@ $("#advanced-options-toggle").click(function() {
   if (advancedOptionsShowing) {
     $("#advanced-options-glyphicon").removeClass("glyphicon-collapse-down");
     $("#advanced-options-glyphicon").addClass("glyphicon-collapse-up");
-    $("#advanced-options").height("80px");
+    $("#advanced-options").height("100%");
   } else {
     $("#advanced-options-glyphicon").removeClass("glyphicon-collapse-up");
     $("#advanced-options-glyphicon").addClass("glyphicon-collapse-down");
     $("#advanced-options").height("0px");
+    $("#advanced-options").text("");
   }
 });

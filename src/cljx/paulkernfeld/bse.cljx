@@ -105,7 +105,7 @@
   (execute ops (State. [] "unfinished")))
 
 #+cljs (defn js-stack [stack]
-        (apply array (map (fn [frame] (apply array frame)) stack)))
+        (apply array (map (fn [frame] (to-hex frame)) stack)))
 
 #+cljs (defn execute-js [parsed]
          (apply array (map (fn [stack] (js-stack (:stack stack))) (execute-full parsed))))
