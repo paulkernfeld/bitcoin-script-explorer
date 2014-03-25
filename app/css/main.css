@@ -2,46 +2,47 @@
  which is licensed under the GNU GPL v3. See LICENSE for details. */
 
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    word-wrap: break-word;
+  padding-top: 50px;
+  padding-bottom: 20px;
+  word-wrap: break-word;
+  word-
 }
 
 div.section {
-    padding: 15px;
+  padding: 15px;
 } 
 .form-horizontal .form-group {
-    margin-left: -15px;
-    margin-right: -15px;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 .program-hex {
-    color: #20b020;
+  color: #20b020;
 }
 
 #advanced-options {
-    height: 0px;
-    display: block;
-    overflow: hidden;
-    transition: height 0.05s ease-in-out;
-    -moz-transition: height 0.05s ease-in-out; /* Firefox 4 */
-    -webkit-transition: height 0.05s ease-in-out; /* Safari and Chrome */
-    -o-transition: height 0.05s ease-in-out; /* Opera */
+  height: 0px;
+  display: block;
+  overflow: hidden;
+  transition: height 0.05s ease-in-out;
+  -moz-transition: height 0.05s ease-in-out; /* Firefox 4 */
+  -webkit-transition: height 0.05s ease-in-out; /* Safari and Chrome */
+  -o-transition: height 0.05s ease-in-out; /* Opera */
 }
 
 .frame {
-    padding-top: 10px;
-    padding-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .invalid {
-    background-color: #ffb0b0;
+  background-color: #ffb0b0;
 }
 
 .active {
-    background-color: #ffb0ff;
+  background-color: #ffb0ff;
 }
 
 h1 {
-    text-align: center;
+  text-align: center;
 }
