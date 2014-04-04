@@ -81,6 +81,11 @@ var parseToControl = function() {
   setCurrentState(currentState);
 };
 
+$(".op.0").click(function(eventData) {
+  if (broken) { return; }
+  setCurrentState(0);
+});
+
 var getCombinedScript = function() {
   return $("#inputPubKey").val() + $("#inputScriptSig").val();
 };
