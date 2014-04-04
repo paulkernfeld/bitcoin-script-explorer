@@ -25,7 +25,7 @@ var setCurrentState = function(index) {
   for (var s in state) {
     var newStackItem = $(
       '<div class="row frame">' +
-        '<span class="program-hex">' +
+        '<span>' +
         state[s] +
         '</span>' +
         '</div>'

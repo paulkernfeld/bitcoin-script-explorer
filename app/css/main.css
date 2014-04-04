@@ -5,12 +5,12 @@ body {
   padding-top: 50px;
   padding-bottom: 20px;
   word-wrap: break-word;
-  word-
 }
 
 div.section {
-  padding: 15px;
-} 
+  padding: -10px;
+}
+
 .form-horizontal .form-group {
   margin-left: -15px;
   margin-right: -15px;
@@ -43,6 +43,6 @@ div.section {
   background-color: #ffb0ff;
 }
 
-h1 {
+h1, h2, footer {
   text-align: center;
 }
