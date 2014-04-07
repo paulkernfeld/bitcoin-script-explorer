@@ -20,6 +20,10 @@ div.section {
   color: #20b020;
 }
 
+.opcode {
+  margin-right: 10px;
+}
+
 #advanced-options {
   height: 0px;
   display: block;
