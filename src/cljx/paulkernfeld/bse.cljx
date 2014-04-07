@@ -78,7 +78,8 @@
      (if
          (< (count (rest script)) opcode)
        (throw-patched (str "Not enough bytes to push for OP_PUSH_" opcode))
-       (Parsed. (Op. opcode (str "OP_PUSH_" opcode "_" (to-hex (take opcode(rest script)))) (make-op-push (take opcode(rest script)))) (drop opcode (rest script))))
+;;       (Parsed. (Op. opcode (str "OP_PUSH_" opcode "_" (to-hex (take opcode(rest script)))) (make-op-push (take opcode(rest script)))) (drop opcode (rest script))))
+       (Parsed. (Op. opcode (str "OP_PUSH_" opcode) (make-op-push (take opcode(rest script)))) (drop opcode (rest script))))
      (= opcode 0x51) (Parsed. (Op. 0x51 "OP_TRUE" op-true) (rest script))
      (= opcode 0x76) (Parsed. (Op. 0x76 "OP_DUP" op-dup) (rest script))
      (= opcode 0x88) (Parsed. (Op. 0x88 "OP_EQUALVERIFY" op-equalverify) (rest script))
