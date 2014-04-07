@@ -1,6 +1,6 @@
-Show actual hex values of ops
-Handle parse errors
-Put a limit on file length
-Enable up/down to move through script
+Show errors more nicely
+Put a limit on input length
+Enable up/down to move through script in FF
 Add icons
 Download customized modernizr
+Remove printing stuff in bse.cljx

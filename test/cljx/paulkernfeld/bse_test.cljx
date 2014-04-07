@@ -30,8 +30,8 @@
   (is (= (bse/State. [[1] [2] [2]] "unfinished") (bse/op-dup (bse/State. [[1] [2]] "unfinished")))))
 
 (deftest op-equalverify-test
-  (is (= (bse/State. [[1] [2] [0]] false) (bse/op-equalverify (bse/State. [[1] [2]] "unfinished"))))
-  (is (= (bse/State. [[1] [1] [1]] true) (bse/op-equalverify (bse/State. [[1] [1]] "unfinished")))))
+  (is (= (bse/State. [[1] [2] [0]] "failure") (bse/op-equalverify (bse/State. [[1] [2]] "unfinished"))))
+  (is (= (bse/State. [[1] [1] [1]] "success") (bse/op-equalverify (bse/State. [[1] [1]] "unfinished")))))
 
 (deftest parse-test
   #+clj (is (thrown? Exception (bse/parse [0xff])))

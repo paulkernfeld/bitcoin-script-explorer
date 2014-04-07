@@ -44,7 +44,7 @@
 (defrecord Parsed [op remaining])
 
 ; stack is a seq of seqs of bytes
-; result is "unfinished," ...
+; result is "unfinished" "success" or "failure" 
 (defrecord State [stack result])
 
 (defn noop [state] state)
@@ -64,7 +64,9 @@
       (case top-2-equal
         false [0]
         true [1]))
-     top-2-equal)))
+     (case top-2-equal
+       false "failure"
+       true "success"))))
 
 ; Mocked out to return a constant, because the real hash depends on the input (txin?)
 (defn op-hash160 [state] (State. (conj (:stack state) (from-hex "0000111122223333444455556666777788889999"))  (:result state)))

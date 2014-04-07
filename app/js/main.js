@@ -24,7 +24,11 @@ var setCurrentState = function(index) {
 
   var stack = state.stack;
 
-  $("#result").text(state.result);
+  $("#result").removeClass().addClass("alert").text(state.result);
+  if (state.result == "unfinished") $("#result").addClass("alert-warning");
+  if (state.result == "success") $("#result").addClass("alert-success");
+  if (state.result == "failure") $("#result").addClass("alert-danger");
+
 
   for (var s in stack) {
     var newStackItem = $(
@@ -39,21 +43,21 @@ var setCurrentState = function(index) {
 };
 
 var parseToControl = function() {
-  $("#parse-alert").hide();
+  $("#parse-status").removeClass().addClass("alert");
+  
   var ops;  
   try {
     script = bse.parse_full(bse.from_hex(getCombinedScript()));
   } catch (err) {
     broken = true;
-    $("#parse-alert").show().text(err.stack);
+    $("#parse-status").addClass("alert-danger").text(err.message);
     console.log(err.stack);
     $("#pubKeyOps").addClass("invalid");
-    $("#parse-alert").height("80px");
     return;
   }
   broken = false;
 
-  $("#parse-alert").height("0%");
+  $("#parse-status").addClass("alert-success").text("Parsed");
 
   // Script was parsed successfully, let's proceed
   ops = bse.parse_js(script);
