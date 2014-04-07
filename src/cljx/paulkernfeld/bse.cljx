@@ -39,7 +39,7 @@
    (fn [hex] (parse-int (apply str hex) 16))
    (partition 2 hexes)))   
 
-(defrecord Op [string execute])
+(defrecord Op [name execute])
 
 (defrecord Parsed [op remaining])
 
@@ -160,15 +160,15 @@
 ; }
 
 (def a-parsed (parse-full (from-hex "483045022074f35af390c41ef1f5395d11f6041cf55a6d7dab0acdac8ee746c1f2de7a43b3022100b3dc3d916b557d378268a856b8f9a98b9afaf45442f5c9d726fce343de835a58012102c34538fc933799d972f55752d318c0328ca2bacccd5c7482119ea9da2df70a2f")))
-(println-patched (map :string a-parsed))
+(println-patched (map :name a-parsed))
 (println-patched (execute-full a-parsed))
 
 (def b-parsed (parse-full (from-hex "76a914000011112222333344445555666677778888999988ac")))
-(println-patched (map :string b-parsed))
+(println-patched (map :name b-parsed))
 (println-patched (execute-full b-parsed))
 
 (def all-parsed (parse-full (from-hex "483045022074f35af390c41ef1f5395d11f6041cf55a6d7dab0acdac8ee746c1f2de7a43b3022100b3dc3d916b557d378268a856b8f9a98b9afaf45442f5c9d726fce343de835a58012102c34538fc933799d972f55752d318c0328ca2bacccd5c7482119ea9da2df70a2f76a914000011112222333344445555666677778888999988ac")))
-(println-patched (map :string all-parsed))
+(println-patched (map :name all-parsed))
 (println-patched (execute-full all-parsed))
 
 #+cljs (println-patched (execute-js all-parsed))

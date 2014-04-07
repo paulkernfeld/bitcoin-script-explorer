@@ -69,7 +69,7 @@ var parseToControl = function() {
         'B7' +
         '</span>' +
         '<span>' +
-        op.string +
+        op.name +
         '</span>' +
         '</div>'
     );
