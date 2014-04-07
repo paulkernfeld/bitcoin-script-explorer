@@ -104,11 +104,18 @@
 (defn execute-full [ops]
   (execute ops (State. [] "unfinished")))
 
+;; Converts the stack object into JS format, w/ arrays
 #+cljs (defn js-stack [stack]
         (apply array (map (fn [frame] (to-hex frame)) stack)))
 
+;; Convert each state object into a JS object, and put them into an array
 #+cljs (defn execute-js [parsed]
-         (apply array (map (fn [stack] (js-stack (:stack stack))) (execute-full parsed))))
+         (apply array (map 
+                       (fn [state]
+                         (js-obj
+                          "result" (:result state)
+                          "stack" (js-stack (:stack state))))
+                       (execute-full parsed))))
 
 (defn print-thing [x] (println-str x))
 

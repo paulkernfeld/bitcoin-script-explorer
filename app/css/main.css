@@ -7,6 +7,13 @@ body {
   word-wrap: break-word;
 }
 
+#presets {
+  width: 100px ;
+  margin-left: auto ;
+  margin-right: auto ;
+  margin-bottom: 15px;
+}
+
 div.section {
   padding: -10px;
 }
@@ -35,8 +42,7 @@ div.section {
 }
 
 .frame {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px;
 }
 
 .invalid {

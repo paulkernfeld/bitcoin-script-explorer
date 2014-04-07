@@ -18,19 +18,23 @@ var setCurrentState = function(index) {
   $(".op").removeClass("active");
   $(".op." + index).addClass("active");
 
-  $("#state").empty();
+  $("#stack").empty();
 
   var state = states[index];
 
-  for (var s in state) {
+  var stack = state.stack;
+
+  $("#result").text(state.result);
+
+  for (var s in stack) {
     var newStackItem = $(
       '<div class="row frame">' +
         '<span>' +
-        state[s] +
+        stack[s] +
         '</span>' +
         '</div>'
     );
-    $("#state").append(newStackItem);
+    $("#stack").append(newStackItem);
   }
 };
 
