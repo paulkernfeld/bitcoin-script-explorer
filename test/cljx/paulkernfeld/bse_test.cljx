@@ -40,7 +40,7 @@
 
 (deftest parse-full-test
   (is [] (bse/parse-full []))
-  #+clj (is [(Op. "OP_TRUE" bse/op-true)] (bse/parse [0x51]))
+  #+clj (is [(Op. 0x51 "OP_TRUE" bse/op-true)] (bse/parse [0x51]))
 
   #+clj (is (thrown? Exception (bse/parse-full [0x02])))
   #+cljs (is (thrown? js/Error (bse/parse-full [0x02])))
@@ -53,11 +53,11 @@
   (is (= [(bse/State. [] "unfinished")]
          (bse/execute-full [])))
   (is (= [(bse/State. [] "unfinished") (bse/State. [] "unfinished")]
-         (bse/execute-full [(Op. "OP_MOCK" bse/noop)])))
+         (bse/execute-full [(Op. 0x00 "OP_MOCK" bse/noop)])))
   (is (= [(bse/State. [] "unfinished") (bse/State. [[1]] "unfinished")]
-         (bse/execute-full [(Op. "OP_MOCK" bse/op-true)])))
+         (bse/execute-full [(Op. 0x00 "OP_MOCK" bse/op-true)])))
   (is (= [(bse/State. [] "unfinished") (bse/State. [[1]] "unfinished") (bse/State. [[1]] "unfinished")]
-         (bse/execute-full [(Op. "OP_MOCK" bse/op-true) (Op. "OP_MOCK" bse/noop)]))))
+         (bse/execute-full [(Op. 0x00 "OP_MOCK" bse/op-true) (Op. 0x00 "OP_MOCK" bse/noop)]))))
 
 ;; maybe = doesn't work for js objects?
 ;;#+cljs (deftest execute-js-test

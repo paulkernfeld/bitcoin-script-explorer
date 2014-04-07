@@ -39,7 +39,7 @@
    (fn [hex] (parse-int (apply str hex) 16))
    (partition 2 hexes)))   
 
-(defrecord Op [name execute])
+(defrecord Op [opcode name execute])
 
 (defrecord Parsed [op remaining])
 
@@ -77,14 +77,14 @@
      (and (> opcode 1) (<= opcode 0x4c))
      (if
          (< (count (rest script)) opcode)
-       (throw-patched "NOT ENOUGH BYTES TO PUSH")
-       (Parsed. (Op. (str "OP_PUSH_" opcode "_" (to-hex (take opcode(rest script)))) (make-op-push (take opcode(rest script)))) (drop opcode (rest script))))
-     (= opcode 0x51) (Parsed. (Op. "OP_TRUE" op-true) (rest script))
-     (= opcode 0x76) (Parsed. (Op. "OP_DUP" op-dup) (rest script))
-     (= opcode 0x88) (Parsed. (Op. "OP_EQUALVERIFY" op-equalverify) (rest script))
-     (= opcode 0xa9) (Parsed. (Op. "OP_HASH160" op-hash160) (rest script))
-     (= opcode 0xac) (Parsed. (Op. "OP_CHECKSIG" op-checksig) (rest script))
-     :else (throw-patched (str "UNSUPPORTED OPCODE: " (to-hex [opcode]))))))
+       (throw-patched (str "Not enough bytes to push for OP_PUSH_" opcode))
+       (Parsed. (Op. opcode (str "OP_PUSH_" opcode "_" (to-hex (take opcode(rest script)))) (make-op-push (take opcode(rest script)))) (drop opcode (rest script))))
+     (= opcode 0x51) (Parsed. (Op. 0x51 "OP_TRUE" op-true) (rest script))
+     (= opcode 0x76) (Parsed. (Op. 0x76 "OP_DUP" op-dup) (rest script))
+     (= opcode 0x88) (Parsed. (Op. 0x88 "OP_EQUALVERIFY" op-equalverify) (rest script))
+     (= opcode 0xa9) (Parsed. (Op. 0xa9 "OP_HASH160" op-hash160) (rest script))
+     (= opcode 0xac) (Parsed. (Op. 0xac "OP_CHECKSIG" op-checksig) (rest script))
+     :else (throw-patched (str "Unsupported opcode: " (to-hex [opcode]))))))
 
 (defn parse-full [script]
   (if (empty? script)

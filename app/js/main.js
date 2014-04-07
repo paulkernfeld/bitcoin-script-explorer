@@ -66,7 +66,7 @@ var parseToControl = function() {
     var newButton = $(
       '<div class="op row frame ' + (index + 1) + '">' +
         '<span class="opcode program-hex">' +
-        'B7' +
+        op.opcode.toString(16) +
         '</span>' +
         '<span>' +
         op.name +
