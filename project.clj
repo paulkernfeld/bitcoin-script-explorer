@@ -7,8 +7,8 @@
   :source-paths ["src/cljx"]
   :resource-paths ["src/resources"]
   :test-paths ["target/test-classes"]
-  :dependencies [[org.clojure/clojure "1.6.0-alpha1"]
-                 [org.clojure/clojurescript "0.0-2156"]]
+  :dependencies [[org.clojure/clojure "1.6.0"]
+                 [org.clojure/clojurescript "0.0-2202"]]
 
   :cljx {:builds [{:source-paths ["src/cljx"]
                    :output-path "target/classes"
@@ -49,7 +49,7 @@
   :profiles {:dev {:plugins [[com.cemerick/clojurescript.test "0.2.2"]
                              [com.keminglabs/cljx "0.3.1"]
                              [com.cemerick/austin "0.1.3"]
-                             [lein-cljsbuild "1.0.1"]
+                             [lein-cljsbuild "1.0.3"]
                              [com.jakemccrary/lein-test-refresh "0.3.4"]]
                    :aliases {"cleantest" ["do" "clean," "cljx" "once," "test,"
                                           "cljsbuild" "once" "testable," "cljsbuild" "test"]
