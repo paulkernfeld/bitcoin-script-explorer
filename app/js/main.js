@@ -42,20 +42,26 @@ var setCurrentState = function(index) {
 
 var parseToControl = function() {
   $("#parse-status").removeClass().addClass("alert");
-  
+
   var ops;  
   try {
     script = bse.parse_full(bse.from_hex(getCombinedScript()));
   } catch (err) {
     broken = true;
-    $("#parse-status").addClass("alert-danger").text(err.message);
+    $("#parse-status")
+      .addClass("alert-danger")
+      .html(err.message)
+      .tooltipster({content: $("<span>" + err.stack.replace(/\n/g,"<br>") + "</span>")});
+
     console.log(err.stack);
     $("#pubKeyOps").addClass("invalid");
     return;
   }
   broken = false;
 
-  $("#parse-status").addClass("alert-success").text("Parsed");
+  $("#parse-status")
+    .addClass("alert-success")
+    .text("Parsed");
 
   // Script was parsed successfully, let's proceed
   ops = bse.parse_js(script);
