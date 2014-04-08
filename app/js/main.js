@@ -33,9 +33,7 @@ var setCurrentState = function(index) {
   for (var s in stack) {
     var newStackItem = $(
       '<div class="row frame">' +
-        '<span>' +
         stack[s] +
-        '</span>' +
         '</div>'
     );
     $("#stack").append(newStackItem);
@@ -73,7 +71,7 @@ var parseToControl = function() {
         op.opcode.toString(16) +
         '</span>' +
         '<span>' +
-        op.name +
+        op.name + " >" +
         '</span>' +
         '</div>'
     );
