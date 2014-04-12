@@ -2,10 +2,9 @@
 ;; which is licensed under the GNU GPL v3. See LICENSE for details.
 
 (ns paulkernfeld.bse-test
-  #+cljs (:require-macros [cemerick.cljs.test :refer (deftest is are)])
+  (:require-macros [cemerick.cljs.test :refer (deftest is are)])
   (:require [paulkernfeld.bse :as bse]
-            #+cljs [cemerick.cljs.test :as t]
-            #+clj [clojure.test :refer (deftest is are)])
+            [cemerick.cljs.test :as t])
   (:import [paulkernfeld.bse State Parsed Op]))
 
 (deftest parse-int
@@ -34,20 +33,15 @@
   (is (= (bse/State. [[1] [1] [1]] "success") (bse/op-equalverify (bse/State. [[1] [1]] "unfinished")))))
 
 (deftest parse-test
-  #+clj (is (thrown? Exception (bse/parse [0xff])))
-  #+cljs (is (thrown? js/Error (bse/parse [0xff])))
-  )
+  (is (thrown? js/Error (bse/parse [0xff]))))
 
 (deftest parse-full-test
   (is [] (bse/parse-full []))
-  #+clj (is [(Op. 0x51 "OP_TRUE" bse/op-true)] (bse/parse [0x51]))
 
-  #+clj (is (thrown? Exception (bse/parse-full [0x02])))
-  #+cljs (is (thrown? js/Error (bse/parse-full [0x02])))
+  (is (thrown? js/Error (bse/parse-full [0x02])))
 
-  #+clj (is (thrown? Exception (bse/parse-full [0xff])))
-  #+cljs (is (thrown? js/Error (bse/parse-full [0xff])))
-  ) ;; invalid opcode -> error
+  ;; invalid opcode -> error
+  (is (thrown? js/Error (bse/parse-full [0xff]))))
 
 (deftest execute-full-test
   (is (= [(bse/State. [] "unfinished")]

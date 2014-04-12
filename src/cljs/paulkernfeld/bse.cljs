@@ -3,27 +3,21 @@
 
 (ns paulkernfeld.bse)
 
-#+clj (set! *warn-on-reflection* true)
-
 ; should use the like (enable-console-print!)
 (defn println-patched [argz]
-  #+clj (println argz)
-  #+cljs (js/console.log argz))
+  (js/console.log argz))
 
 (defn throw-patched [error]
-  #+clj (throw (Exception. error))
-  #+cljs (throw (js/Error error)))
+  (throw (js/Error error)))
 
 (defn parse-int [string radix]
-  #+clj (Integer/parseInt string radix)
-  #+cljs (js/parseInt string radix))
+  (js/parseInt string radix))
 
 (defn byte-to-hex [abyte]
-  #+clj (format "%02x" abyte)
-  #+cljs (let [asstring (.toString abyte 16)]
-           (if (= 1 (count asstring))
-             (str "0" asstring)
-             asstring)))
+  (let [asstring (.toString abyte 16)]
+    (if (= 1 (count asstring))
+      (str "0" asstring)
+      asstring)))
 
 ; input: a seq of bytes
 ; output: lower-case hex string
@@ -94,8 +88,8 @@
     []
     (cons (:op (parse script)) (parse-full (:remaining (parse script))))))
 
-#+cljs (defn parse-js [parsed]
-         (apply array parsed))
+(defn parse-js [parsed]
+  (apply array parsed))
 
 ;; returns all states after this set of ops is executed on this start state
 ;; includes the start state
@@ -108,17 +102,17 @@
   (execute ops (State. [] "unfinished")))
 
 ;; Converts the stack object into JS format, w/ arrays
-#+cljs (defn js-stack [stack]
-        (apply array (map (fn [frame] (to-hex frame)) stack)))
+(defn js-stack [stack]
+  (apply array (map (fn [frame] (to-hex frame)) stack)))
 
 ;; Convert each state object into a JS object, and put them into an array
-#+cljs (defn execute-js [parsed]
-         (apply array (map 
-                       (fn [state]
-                         (js-obj
-                          "result" (:result state)
-                          "stack" (js-stack (:stack state))))
-                       (execute-full parsed))))
+(defn execute-js [parsed]
+  (apply array (map 
+                (fn [state]
+                  (js-obj
+                   "result" (:result state)
+                   "stack" (js-stack (:stack state))))
+                (execute-full parsed))))
 
 (defn print-thing [x] (println-str x))
 
@@ -174,4 +168,4 @@
 (println-patched (map :name all-parsed))
 (println-patched (execute-full all-parsed))
 
-#+cljs (println-patched (execute-js all-parsed))
+(println-patched (execute-js all-parsed))

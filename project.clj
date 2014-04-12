@@ -1,56 +1,31 @@
-;; Copyright 2014 Paul Kernfeld. This file is part of bitcoin-script-explorer,
-;; which is licensed under the GNU GPL v3. See LICENSE for details.
-
 (defproject com.paulkernfeld/bse "0.1.0"
   :description "Bitcoin Script learning tool"
-  :jar-exclusions [#"\.cljx|\.swp|\.swo|\.DS_Store"]
-  :source-paths ["src/cljx"]
-  :resource-paths ["src/resources"]
-  :test-paths ["target/test-classes"]
+  :url "https://github.com/paulkernfeld/bitcoin-script-explorer"
+  :license {:name "GNU GPL v3"
+            :url "https://www.gnu.org/copyleft/gpl.html"}
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.clojure/clojurescript "0.0-2202"]]
-
-  :cljx {:builds [{:source-paths ["src/cljx"]
-                   :output-path "target/classes"
-                   :rules :clj}
-
-                  {:source-paths ["src/cljx"]
-                   :output-path "target/classes"
-                   :rules :cljs}
-
-                  {:source-paths ["test/cljx"]
-                   :output-path "target/test-classes"
-                   :rules :clj}
-
-                  {:source-paths ["test/cljx"]
-                   :output-path "target/test-classes"
-                   :rules :cljs}]}
-
-  :cljsbuild {:builds {:testable {:source-paths ["target/classes" "target/test-classes"]
-                                  :compiler {:output-to "target/cljs/testable.js"
-                                             :optimizations :whitespace
-                                             :pretty-print true}}
-                       :production {:source-paths ["target/classes"]
-                                    :compiler {:output-to "app/js/cljs/main.js"
-                                               :optimizations :whitespace
-                                               :pretty-print true}}}
-              :test-commands {"unit-tests" ["phantomjs" :runner
-                                            "this.literal_js_was_evaluated=true"
-                                            "target/cljs/testable.js"]}}
-  
-  ;; I think the node.js test runner is broken
-  ;; :cljsbuild {:test-commands {"node" ["node" :node-runner "target/testable.js"]}
-  ;;             :builds [{:source-paths ["target/classes" "target/test-classes"]
-  ;;                       :compiler {:output-to "target/testable.js"
-  ;;                                  :libs [""]
-  ;;                                  :optimizations :advanced
-  ;;                                  :pretty-print true}}]}
-
-  :profiles {:dev {:plugins [[com.cemerick/clojurescript.test "0.2.2"]
-                             [com.keminglabs/cljx "0.3.1"]
-                             [com.cemerick/austin "0.1.3"]
-                             [lein-cljsbuild "1.0.3"]
-                             [com.jakemccrary/lein-test-refresh "0.3.4"]]
-                   :aliases {"cleantest" ["do" "clean," "cljx" "once," "test,"
-                                          "cljsbuild" "once" "testable," "cljsbuild" "test"]
-                             "cleanproduction" ["do" "clean," "cljx" "once," "cljsbuild" "once" "production"]}}})
+                 [org.clojure/clojurescript "0.0-2202"]
+                 [com.cemerick/clojurescript.test "0.2.2"]] ; in dev
+  :profiles {:dev {:source-paths ["src" "dev"]
+                   :dependencies [[com.cemerick/clojurescript.test "0.2.2"]]
+             :aliases {"cleantest" ["do" "clean," "cljsbuild" "test"]
+                       "production" ["do" "cljsbuild" "once" "production"]}}}
+  :plugins [[lein-cljsbuild "1.0.3"]]
+  :cljsbuild {:builds
+              {:testable {:source-paths ["src/cljs" "test/cljs"]
+                          :compiler {:output-to "target/cljs/testable.js"
+                                     :optimizations :whitespace
+                                     :pretty-print true
+                                     :foreign-libs
+                                     [{:file "paulkernfeld/bse/js/ripemd160.js"
+                                       :provides ["paulkernfeld.bse.js.ripemd160"]}]}}
+               :production {:source-paths ["src/cljs"]
+                            :compiler {:output-to "app/js/cljs/main.js"
+                                       :optimizations :whitespace
+                                       :pretty-print true
+                                       :foreign-libs
+                                       [{:file "paulkernfeld/bse/js/ripemd160.js"
+                                         :provides ["paulkernfeld.bse.js.ripemd160"]}]}}}
+              :test-commands {"unit-tests"
+                              ["runners/phantomjs.js"
+                               "target/cljs/testable.js"]}})

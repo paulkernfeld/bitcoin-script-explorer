@@ -2,7 +2,7 @@
 
 echo "lein test-refresh"
 
-declare -a arr=("lein cljx auto" "lein cljsbuild auto testable" "lein cljsbuild auto production")
+declare -a arr=("lein cljsbuild auto testable" "lein cljsbuild auto production")
 
 ## now loop through the above array
 for cmd in "${arr[@]}"; do {
