@@ -7,4 +7,5 @@
    [cemerick.cljs.test :refer [is deftest with-test run-tests testing]]))
 
 (deftest ripemd160-test
-  (is (= "98e0b13e77bc80cdf9dce5c90f007ce24229c800" (ripemd160 "kittens"))))
+  ;; "kittens" as hex
+  (is (= "98e0b13e77bc80cdf9dce5c90f007ce24229c800" (ripemd160 "6b697474656e73"))))

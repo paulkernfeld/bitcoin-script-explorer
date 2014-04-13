@@ -4,4 +4,4 @@
 
 (defn ^:extern ripemd160
   [s]
-  (.toString (.RIPEMD160 js/CryptoJS s)))
+  (.toString (.RIPEMD160 js/CryptoJS (.parse (.-Hex (.-enc js/CryptoJS)) s))))
