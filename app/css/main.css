@@ -25,6 +25,7 @@ div.section {
 #parse-status {
   padding: 15px;
   text-align: center;
+  margin-left: 15px;
 }
 
 .form-horizontal .form-group {
