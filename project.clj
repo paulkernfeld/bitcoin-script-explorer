@@ -18,14 +18,18 @@
                                      :pretty-print true
                                      :foreign-libs
                                      [{:file "paulkernfeld/bse/js/ripemd160.js"
-                                       :provides ["paulkernfeld.bse.js.ripemd160"]}]}}
+                                       :provides ["paulkernfeld.bse.js.ripemd160"]}
+                                      {:file "paulkernfeld/bse/js/sha256.js"
+                                       :provides ["paulkernfeld.bse.js.sha256"]}]}}
                :production {:source-paths ["src/cljs"]
                             :compiler {:output-to "app/js/cljs/main.js"
                                        :optimizations :whitespace
                                        :pretty-print true
                                        :foreign-libs
                                        [{:file "paulkernfeld/bse/js/ripemd160.js"
-                                         :provides ["paulkernfeld.bse.js.ripemd160"]}]}}}
+                                         :provides ["paulkernfeld.bse.js.ripemd160"]}
+                                        {:file "paulkernfeld/bse/js/sha256.js"
+                                         :provides ["paulkernfeld.bse.js.sha256"]}]}}}
               :test-commands {"unit-tests"
                               ["runners/phantomjs.js"
                                "target/cljs/testable.js"]}})
