@@ -41,7 +41,10 @@ var setCurrentState = function(index) {
 };
 
 var parseToControl = function() {
-  $("#parse-status").removeClass().addClass("alert");
+  $("#parse-status")
+    .removeClass()
+    .addClass("alert")
+    .tooltipster('disable');
 
   var ops;  
   try {
@@ -51,7 +54,8 @@ var parseToControl = function() {
     $("#parse-status")
       .addClass("alert-danger")
       .html(err.message)
-      .tooltipster({content: $("<span>" + err.stack.replace(/\n/g,"<br>") + "</span>")});
+      .tooltipster('content', $("<span>" + err.stack.replace(/\n/g,"<br>") + "</span>"));
+    $("#parse-status").tooltipster("enable");
 
     console.log(err.stack);
     $("#pubKeyOps").addClass("invalid");
@@ -88,10 +92,14 @@ var parseToControl = function() {
       if (broken) { return; }
       setCurrentState(index + 1);
     });
+
+    newButton.tooltipster({content: $("<span>" + op.description + "</span>")});
   });
 
   setCurrentState(currentState);
 };
+
+$("#parse-status").tooltipster({"content": ""});
 
 $(".op.0").click(function(eventData) {
   if (broken) { return; }
