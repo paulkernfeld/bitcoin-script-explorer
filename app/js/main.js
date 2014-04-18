@@ -10,13 +10,17 @@ var examples = {
   "successful": {
     "scriptSig": "76a9145e4ff47ceb3a51cdf7ddd80afc4acc5a692dac2d88ac",
     "pubKey": "483045022074f35af390c41ef1f5395d11f6041cf55a6d7dab0acdac8ee746c1f2de7a43b3022100b3dc3d916b557d378268a856b8f9a98b9afaf45442f5c9d726fce343de835a58012102c34538fc933799d972f55752d318c0328ca2bacccd5c7482119ea9da2df70a2f"
-  }
+  },
+  "unsuccessful": {
+    "scriptSig": "76a9145e4ff47ceb3a51cdf7ddd80afc4acc5a692dac2d88ac",
+    "pubKey": "51"
+  } 
 };
 
 // Logical state
 var states;
 var script;
-var currentState = 0
+var currentState = 0;
 var broken = false;
 
 // Change where we are in the program
@@ -51,6 +55,8 @@ var setExample = function(id) {
   var example = examples[id];
   $("#inputScriptSig").text(example.scriptSig);
   $("#inputPubKey").text(example.pubKey);
+  currentState = 0;
+  parseToControl();
 };
 
 var parseToControl = function() {
@@ -165,9 +171,16 @@ $(document).keypress(function(eventObject) {
   }
 });
 
+$("#examples .example").click(function(eventObject) {
+  var target = eventObject.target;
+  setExample(target.id);
+
+  $(".example").removeClass("active");
+  $(target).addClass("active");
+});
+
 // Initialize
 setExample("successful");
-parseToControl();
 
 var advancedOptionsShowing = false;
 $("#advanced-options-toggle").click(function() {
@@ -184,4 +197,3 @@ $("#advanced-options-toggle").click(function() {
     $("#advanced-options").text("");
   }
 });
-

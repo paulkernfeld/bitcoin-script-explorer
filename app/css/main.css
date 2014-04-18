@@ -7,13 +7,13 @@ body {
   word-wrap: break-word;
 }
 
-#presets {
+#examples {
   width: 500px ;
   margin-left: auto ;
   margin-right: auto ;
 }
 
-.preset {
+.example {
   float: left;
   margin: 15px;
 }
