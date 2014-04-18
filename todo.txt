@@ -1,4 +1,3 @@
-Show errors more nicely
 Put a limit on input length
 Enable up/down to move through script in FF
 Add icons
@@ -6,3 +5,4 @@ Download customized modernizr
 Remove printing stuff in bse.cljx
 Add analytics
 NCDU
+fixed-width font

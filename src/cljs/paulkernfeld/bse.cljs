@@ -1,7 +1,12 @@
 ;; Copyright 2014 Paul Kernfeld. This file is part of bitcoin-script-explorer,
 ;; which is licensed under the GNU GPL v3. See LICENSE for details.
 
-(ns paulkernfeld.bse)
+(ns paulkernfeld.bse
+  (:require
+   paulkernfeld.bse.js.sha256
+   [paulkernfeld.bse.sha256 :refer [sha256]]
+   paulkernfeld.bse.js.ripemd160
+   [paulkernfeld.bse.ripemd160 :refer [ripemd160]]))
 
 ; should use the like (enable-console-print!)
 (defn println-patched [argz]
@@ -73,8 +78,9 @@
        false "failure"
        true "success"))))
 
-; Mocked out to return a constant, because the real hash depends on the input (txin?)
-(defn op-hash160 [state] (State. (conj (:stack state) (from-hex "0000111122223333444455556666777788889999"))  (:result state)))
+(defn hash160 [input] (from-hex (ripemd160 (sha256 (to-hex input)))))
+
+(defn op-hash160 [state] (State. (conj (:stack state) (hash160 (peek (:stack state)))) (:result state)))
 
 (defn op-checksig [state] (State. (conj (:stack state) [1]) (:result state)))
 
