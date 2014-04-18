@@ -45,8 +45,8 @@ which is licensed under the GNU GPL v3. See LICENSE for details. -->
 		<div>
 		  <p>See example transactions:</p>
       	  <div id="presets">
-			<div class="preset frame active">Successful transaction &gt;</div>
-			<div class="preset frame">Unsuccessful transaction &gt;</div>
+			<div id="successful" class="preset frame active">Successful transaction &gt;</div>
+			<div id="unsuccessful" class="preset frame">Unsuccessful transaction &gt;</div>
 		  </div>
 		</div>
       </div>
@@ -56,14 +56,14 @@ which is licensed under the GNU GPL v3. See LICENSE for details. -->
           <div class="form-group">
             <label for="inputScriptSig" class="col-md-2 control-label">scriptSig</label>
             <div class="col-md-10">
-              <textarea id="inputScriptSig" class="form-control program-hex" ng-pattern="/^([0-9A-Fa-f][0-9A-Fa-f])*$/" wrap="hard">76a9145e4ff47ceb3a51cdf7ddd80afc4acc5a692dac2d88ac</textarea>
+              <textarea id="inputScriptSig" class="form-control program-hex" ng-pattern="/^([0-9A-Fa-f][0-9A-Fa-f])*$/" wrap="hard"></textarea>
             </div>
           </div>
 		  <div class="text">The pubKey comes from the spending transaction. This section of the program satisfies the conditions imposed by the scriptSig. The goal of the pubKey section is to make the program return &quot;success.&quot;</div>
           <div class="form-group">
             <label for="inputPubKey" class="col-md-2 control-label">scriptPubKey</label>
             <div class="col-md-10">
-              <textarea id="inputPubKey" class="form-control program-hex" ng-pattern="/^([0-9A-Fa-f][0-9A-Fa-f])*$/" wrap="hard">483045022074f35af390c41ef1f5395d11f6041cf55a6d7dab0acdac8ee746c1f2de7a43b3022100b3dc3d916b557d378268a856b8f9a98b9afaf45442f5c9d726fce343de835a58012102c34538fc933799d972f55752d318c0328ca2bacccd5c7482119ea9da2df70a2f</textarea>
+              <textarea id="inputPubKey" class="form-control program-hex" ng-pattern="/^([0-9A-Fa-f][0-9A-Fa-f])*$/" wrap="hard"></textarea>
             </div>
           </div>
         </form>
