@@ -22,6 +22,11 @@ div.section {
   padding: -15px;
 }
 
+div.text {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 #parse-status {
   padding: 15px;
   text-align: center;
