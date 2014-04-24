@@ -59,7 +59,7 @@
     str
     (map
      (fn [part] (str "<br>" (to-hex part)))
-     (partition 8 data)))))
+     (partition-all 8 data)))))
 
 (defn op-true [state] (State. (conj (:stack state) [1]) (:result state)))
 
