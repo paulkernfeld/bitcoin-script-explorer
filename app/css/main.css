@@ -7,6 +7,10 @@ body {
   word-wrap: break-word;
 }
 
+h3 {
+  font-size: 20px;
+}
+
 #examples {
   width: 500px ;
   margin-left: auto ;
