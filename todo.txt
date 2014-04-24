@@ -7,3 +7,4 @@ Add analytics
 NCDU
 fixed-width font
 Make tooltips disappear instantly
+Nice message on unsupported ops

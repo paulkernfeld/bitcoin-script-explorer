@@ -14,7 +14,7 @@ var examples = {
   "unsuccessful": {
     "scriptSig": "76a9145e4ff47ceb3a51cdf7ddd80afc4acc5a692dac2d88ac",
     "pubKey": "51"
-  } 
+  }
 };
 
 // Logical state
