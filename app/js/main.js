@@ -67,7 +67,7 @@ var parseToControl = function() {
 
   var ops;  
   try {
-    script = bse.parse_full(bse.from_hex(getCombinedScript()));
+    script = bse.parse_full(bse.from_hex(getCombinedScriptSafe()));
   } catch (err) {
     broken = true;
     $("#parse-status")
@@ -125,8 +125,27 @@ $(".op.0").click(function(eventData) {
   setCurrentState(0);
 });
 
+var inputRegex = /^([0-9A-Fa-f][0-9A-Fa-f])*$/;
+
+var getCombinedScriptSafe = function() {
+  var pubKey = $("#inputPubKey").val();
+  var scriptSig = $("#inputScriptSig").val();
+
+  if (!inputRegex.test(pubKey)) {
+    throw new Error("pubKey must be a valid hex-encoded byte string");
+  }
+  if (!inputRegex.test(scriptSig)) {
+    throw new Error("scriptSig must be a valid hex-encoded byte string");
+  }
+
+  return pubKey + scriptSig;
+};
+
 var getCombinedScript = function() {
-  return $("#inputPubKey").val() + $("#inputScriptSig").val();
+  var pubKey = $("#inputPubKey").val();
+  var scriptSig = $("#inputScriptSig").val();
+
+  return pubKey + scriptSig;
 };
 
 $("#inputPubKey").change(function() {
