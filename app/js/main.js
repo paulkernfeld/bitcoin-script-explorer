@@ -53,8 +53,8 @@ var setCurrentState = function(index) {
 
 var setExample = function(id) {
   var example = examples[id];
-  $("#inputScriptSig").text(example.scriptSig);
-  $("#inputPubKey").text(example.pubKey);
+  $("#inputScriptSig").val(example.scriptSig);
+  $("#inputPubKey").val(example.pubKey);
   currentState = 0;
   parseToControl();
 };
