@@ -25,6 +25,9 @@
 (deftest op-true-test
   (is (= (bse/State. [[3] [2] [1]] "unfinished") (bse/op-true (bse/State. [[3] [2]] "unfinished")))))
 
+(deftest op-return-test
+  (is (= (bse/State. [[2] [1]] "failure") (bse/op-return (bse/State. [[2] [1]] "unfinished")))))
+
 ;; Uses the hash160 equivalent found here: https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses
 (deftest op-hash160-test
   (let
@@ -37,6 +40,7 @@
   (is (= (bse/State. [[1] [2] [2]] "unfinished") (bse/op-dup (bse/State. [[1] [2]] "unfinished")))))
 
 (deftest op-equalverify-test
+  (is (= (bse/State. [[1] [1] [1]] "failure") (bse/op-equalverify (bse/State. [[1] [1]] "failure"))))
   (is (= (bse/State. [[1] [2] [0]] "failure") (bse/op-equalverify (bse/State. [[1] [2]] "unfinished"))))
   (is (= (bse/State. [[1] [1] [1]] "success") (bse/op-equalverify (bse/State. [[1] [1]] "unfinished")))))
 

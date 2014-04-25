@@ -14,6 +14,10 @@ var examples = {
   "unsuccessful": {
     "pubKey": "76a9145e4ff47ceb3a51cdf7ddd80afc4acc5a692dac2d88ac",
     "scriptSig": "51"
+  },
+  "unspendable": {
+    "pubKey": "6a",
+    "scriptSig": ""
   }
 };
 

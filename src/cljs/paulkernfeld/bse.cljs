@@ -63,6 +63,8 @@
 
 (defn op-true [state] (State. (conj (:stack state) [1]) (:result state)))
 
+(defn op-return [state] (State. (:stack state) "failure"))
+
 (defn op-dup [state] (State. (conj (:stack state) (peek (:stack state))) (:result state)))
 
 ; This should only be true if the previous result wasn't false
@@ -74,7 +76,7 @@
       (case top-2-equal
         false [0]
         true [1]))
-     (case top-2-equal
+     (case (and top-2-equal (not (= (:result state) "failure")))
        false "failure"
        true "success"))))
 
@@ -94,6 +96,7 @@
 ;;       (Parsed. (Op. opcode (str "OP_PUSH_" opcode "_" (to-hex (take opcode(rest script)))) (make-op-push (take opcode(rest script)))) (drop opcode (rest script))))
        (Parsed. (Op. opcode (str "OP_PUSH_" opcode) (make-op-push (take opcode(rest script))) (make-op-push-description (take opcode(rest script)))) (drop opcode (rest script))))
      (= opcode 0x51) (Parsed. (Op. 0x51 "OP_TRUE" op-true "Push the value 0x01 onto the stack") (rest script))
+     (= opcode 0x6a) (Parsed. (Op. 0x6a "OP_RETURN" op-return "Mark the transaction as invalid") (rest script))
      (= opcode 0x76) (Parsed. (Op. 0x76 "OP_DUP" op-dup "Push the top item onto the stack") (rest script))
      (= opcode 0x88) (Parsed. (Op. 0x88 "OP_EQUALVERIFY" op-equalverify "Returns 1 if the top two items on the stack are exactly equal, 0 otherwise. Then, marks transaction as invalid if top stack value is not true") (rest script))
      (= opcode 0xa9) (Parsed. (Op. 0xa9 "OP_HASH160" op-hash160 "Hash the top item on the stack, first with SHA256 then with RIPEMD160.") (rest script))
