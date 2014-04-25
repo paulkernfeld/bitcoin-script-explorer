@@ -8,12 +8,12 @@ var bse = paulkernfeld.bse;
 // Example transactions
 var examples = {
   "successful": {
-    "scriptSig": "76a9145e4ff47ceb3a51cdf7ddd80afc4acc5a692dac2d88ac",
-    "pubKey": "483045022074f35af390c41ef1f5395d11f6041cf55a6d7dab0acdac8ee746c1f2de7a43b3022100b3dc3d916b557d378268a856b8f9a98b9afaf45442f5c9d726fce343de835a58012102c34538fc933799d972f55752d318c0328ca2bacccd5c7482119ea9da2df70a2f"
+    "pubKey": "76a9145e4ff47ceb3a51cdf7ddd80afc4acc5a692dac2d88ac",
+    "scriptSig": "483045022074f35af390c41ef1f5395d11f6041cf55a6d7dab0acdac8ee746c1f2de7a43b3022100b3dc3d916b557d378268a856b8f9a98b9afaf45442f5c9d726fce343de835a58012102c34538fc933799d972f55752d318c0328ca2bacccd5c7482119ea9da2df70a2f"
   },
   "unsuccessful": {
-    "scriptSig": "76a9145e4ff47ceb3a51cdf7ddd80afc4acc5a692dac2d88ac",
-    "pubKey": "51"
+    "pubKey": "76a9145e4ff47ceb3a51cdf7ddd80afc4acc5a692dac2d88ac",
+    "scriptSig": "51"
   }
 };
 
@@ -53,8 +53,8 @@ var setCurrentState = function(index) {
 
 var setExample = function(id) {
   var example = examples[id];
-  $("#inputScriptSig").val(example.scriptSig);
   $("#inputPubKey").val(example.pubKey);
+  $("#inputScriptSig").val(example.scriptSig);
   currentState = 0;
   parseToControl();
 };
@@ -77,7 +77,7 @@ var parseToControl = function() {
     $("#parse-status").tooltipster("enable");
 
     console.log(err.stack);
-    $("#pubKeyOps").addClass("invalid");
+    $("#allOps").addClass("invalid");
     return;
   }
   broken = false;
@@ -90,8 +90,8 @@ var parseToControl = function() {
   ops = bse.parse_js(script);
   states = bse.execute_js(script);
 
-  $("#pubKeyOps").empty();
-  $("#pubKeyOps").removeClass("invalid");
+  $("#allOps").empty();
+  $("#allOps").removeClass("invalid");
 
   $.each(ops, function(index, op) {
     var newButton = $(
@@ -105,7 +105,7 @@ var parseToControl = function() {
         '</div>'
     );
 
-    $("#pubKeyOps").append(newButton);
+    $("#allOps").append(newButton);
 
     newButton.click(function(eventData) {
       if (broken) { return; }
@@ -128,43 +128,43 @@ $(".op.0").click(function(eventData) {
 var inputRegex = /^([0-9A-Fa-f][0-9A-Fa-f])*$/;
 
 var getCombinedScriptSafe = function() {
-  var pubKey = $("#inputPubKey").val();
   var scriptSig = $("#inputScriptSig").val();
+  var pubKey = $("#inputPubKey").val();
 
-  if (!inputRegex.test(pubKey)) {
-    throw new Error("pubKey must be a valid hex-encoded byte string");
-  }
   if (!inputRegex.test(scriptSig)) {
     throw new Error("scriptSig must be a valid hex-encoded byte string");
   }
+  if (!inputRegex.test(pubKey)) {
+    throw new Error("pubKey must be a valid hex-encoded byte string");
+  }
 
-  return pubKey + scriptSig;
+  return scriptSig + pubKey;
 };
 
 var getCombinedScript = function() {
-  var pubKey = $("#inputPubKey").val();
   var scriptSig = $("#inputScriptSig").val();
+  var pubKey = $("#inputPubKey").val();
 
-  return pubKey + scriptSig;
+  return scriptSig + pubKey;
 };
-
-$("#inputPubKey").change(function() {
-  parseToControl();
-});
 
 $("#inputScriptSig").change(function() {
   parseToControl();
 });
 
+$("#inputPubKey").change(function() {
+  parseToControl();
+});
+
 var events = "mouseup keyup";
 
-$("#inputPubKey").on(events, function() {
+$("#inputScriptSig").on(events, function() {
   if(getCombinedScript().length < 1000) {
     parseToControl();
   }
 });
 
-$("#inputScriptSig").on(events, function() {
+$("#inputPubKey").on(events, function() {
   if(getCombinedScript().length < 1000) {
     parseToControl();
   }

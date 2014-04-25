@@ -39,7 +39,7 @@ which is licensed under the GNU GPL v3. See LICENSE for details. -->
         <h3>What is Bitcoin Script?</h3>
         <p>The Bitcoin blockchain consists of a sequence of transactions, where each transaction may spend the outputs of a previous transaction.</p>
         <p>Bitcoin Script is a minimal stack-based programming language. Each Bitcoin transaction has an associated Bitcoin Script program, and the result of running this program determines whether this transaction is valid or not.</p>
-        <p>A Bitcoin Script program is assembled from two sections. The scriptSig, which comes from the previous transaction, specifies what conditions must be met in order to spend the bitcoins from that transaction. The pubKey, which comes from the spending transaction, satisfies these conditions.  These two sources are concatenated together to form the complete Bitcoin Script program, which can then be run.</p>
+        <p>A Bitcoin Script program is assembled from two sections. The pubKey, which comes from the previous transaction, specifies what conditions must be met in order to spend the bitcoins from that transaction. The scriptSig, which comes from the spending transaction, satisfies these conditions.  These two sources are concatenated together to form the complete Bitcoin Script program, which can then be run.</p>
       </div>
 
       <div class="row">
@@ -54,25 +54,25 @@ which is licensed under the GNU GPL v3. See LICENSE for details. -->
       <div class="row">
         <form class="form-horizontal" role="form">
           <div class="text">
-            <h3>scriptSig</h3>
-            <p>The scriptSig comes from the previous transaction. It specifies what conditions must be met to spend the bitcoins from that transaction, which usually consists of a proof of ownership. The goal of the scriptSig section is to ensure that only desired parties may spend the bitcoins in its transaction.</p>
-            <p>The scriptSig forms the <em>second</em> part of the combined script.</p>
+            <h3>pubKey</h3>
+            <p>The pubKey comes from the previous transaction. It specifies what conditions must be met to spend the bitcoins from that transaction, which usually consists of a proof of ownership. The goal of the pubKey section is to ensure that only desired parties may spend the bitcoins in its transaction.</p>
+            <p>The pubKey forms the <em>second</em> part of the combined script.</p>
           </div>
           <div class="form-group">
-            <label for="inputScriptSig" class="col-md-2 control-label">scriptSig</label>
+            <label for="inputPubKey" class="col-md-2 control-label">pubKey</label>
             <div class="col-md-10">
-              <textarea id="inputScriptSig" class="form-control program-hex" wrap="hard"></textarea>
+              <textarea id="inputPubKey" class="form-control program-hex" wrap="hard"></textarea>
             </div>
           </div>
           <div class="text">
-            <h3>pubKey</h3>
-            <p>The pubKey comes from the spending transaction. This section of the program satisfies the conditions imposed by the scriptSig. The goal of the pubKey section is to make the program return &quot;success.&quot;</p>
-            <p>The pubKey forms the <em>first</em> part of the combined script.</p>
+            <h3>scriptSig</h3>
+            <p>The scriptSig comes from the spending transaction. This section of the program satisfies the conditions imposed by the pubKey. The goal of the scriptSig section is to make the program return &quot;success.&quot;</p>
+            <p>The scriptSig forms the <em>first</em> part of the combined script.</p>
           </div>
           <div class="form-group">
-            <label for="inputPubKey" class="col-md-2 control-label">scriptPubKey</label>
+            <label for="inputScriptSig" class="col-md-2 control-label">ScriptSig</label>
             <div class="col-md-10">
-              <textarea id="inputPubKey" class="form-control program-hex" wrap="hard"></textarea>
+              <textarea id="inputScriptSig" class="form-control program-hex" wrap="hard"></textarea>
             </div>
           </div>
         </form>
@@ -97,7 +97,7 @@ which is licensed under the GNU GPL v3. See LICENSE for details. -->
           <div class="section">
             <h3>Script</h3>
             <div class="text">
-              <p>The script consists of a list of operators, which come from the raw hex contained in <em>pubKey</em> and <em>scriptSig</em>.</p>
+              <p>The script consists of a list of operators, which come from the raw hex contained in <em>scriptSig</em> and <em>pubKey</em>.</p>
               <p>Use J and K to navigate.</p>
             </div>
             <div>
@@ -105,7 +105,7 @@ which is licensed under the GNU GPL v3. See LICENSE for details. -->
                 Click here to return to the initial state &gt;
               </div>
             </div>
-            <div id="pubKeyOps">
+            <div id="allOps">
             </div>
           </div>
         </div>
