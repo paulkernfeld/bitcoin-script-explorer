@@ -11,17 +11,22 @@ $(document).ready(function() {
     "successful": {
       "pubKey": "76a9145e4ff47ceb3a51cdf7ddd80afc4acc5a692dac2d88ac",
       "scriptSig": "483045022074f35af390c41ef1f5395d11f6041cf55a6d7dab0acdac8ee746c1f2de7a43b3022100b3dc3d916b557d378268a856b8f9a98b9afaf45442f5c9d726fce343de835a58012102c34538fc933799d972f55752d318c0328ca2bacccd5c7482119ea9da2df70a2f",
-      "tooltip": "The information provided by the scriptSig succesfully satisfies the constraints imposed by the pubKey."
+      "tooltip": "Standard Bitcoin transactions use this form. Here, the information provided by the scriptSig succesfully satisfies the constraints imposed by the pubKey."
     },
     "unsuccessful": {
       "pubKey": "76a9145e4ff47ceb3a51cdf7ddd80afc4acc5a692dac2d88ac",
       "scriptSig": "51",
-      "tooltip": "The information provided by the scriptSig does not succesfully the constraints imposed by the pubKey."
+      "tooltip": "Standard Bitcoin transactions use this form. Here, the information provided by the scriptSig does not succesfully the constraints imposed by the pubKey."
     },
     "unspendable": {
       "pubKey": "6a",
       "scriptSig": "",
       "tooltip": "No scriptSig could possibly ever spend this money, because the pubKey marks this transaction as invalid."
+    },
+    "puzzle": {
+      "pubKey": "A914010966776006953D5567439E5E39F86A0D273BEE88",
+      "scriptSig": "",
+      "tooltip": "Can you find a scriptSig that results in this hash?"
     }
   };
 

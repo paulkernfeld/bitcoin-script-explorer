@@ -89,7 +89,7 @@
 (defn parse [script]
   (let [opcode (first script)]
     (cond
-     (and (> opcode 1) (<= opcode 0x4c))
+     (and (>= opcode 1) (<= opcode 0x4c))
      (if
          (< (count (rest script)) opcode)
        (throw-patched (str "Not enough bytes to push for OP_PUSH_" opcode))
