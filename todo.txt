@@ -4,7 +4,6 @@ Add icons
 Download customized modernizr
 Remove printing stuff in bse.cljx
 Add analytics
-NCDU
 fixed-width font
 Make tooltips disappear instantly
 Nice message on unsupported ops
