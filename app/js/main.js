@@ -184,19 +184,20 @@ $(document).ready(function() {
   });
 
   $(document).keypress(function(eventObject) {
+    console.log(eventObject);
     if (broken) {
       return;
     }
 
     // K to move up
-    if (eventObject.keyCode == 107) {
+    if (eventObject.charCode == 107) {
       if (currentState > 0) {
         setCurrentState(currentState - 1);
       }
     }
 
     // J to move down
-    if (eventObject.keyCode == 106) {
+    if (eventObject.charCode == 106) {
       if (currentState < states.length - 1) {
         setCurrentState(currentState + 1);
       }
