@@ -1,9 +1,7 @@
 Put a limit on input length
-Enable up/down to move through script in FF
-Add icons
-Download customized modernizr
+Fix up/down to move through script in FF
 Remove printing stuff in bse.cljx
 Add analytics
 fixed-width font
 Make tooltips disappear instantly
-Nice message on unsupported ops
+Make "unfinished" report as "failure"
