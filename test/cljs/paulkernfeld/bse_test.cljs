@@ -7,7 +7,7 @@
             [cemerick.cljs.test :as t])
   (:import [paulkernfeld.bse State Parsed Op]))
 
-(deftest parse-int
+(deftest parse-int-test
   (is (= 0 (bse/parse-int "0" 10)))
   (is (= 10 (bse/parse-int "10" 10)))
   (is (= 16 (bse/parse-int "10" 16))))
