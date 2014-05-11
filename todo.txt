@@ -1,7 +1,6 @@
 Put a limit on input length
-Fix up/down to move through script in FF
-Remove printing stuff in bse.cljx
 Add analytics
-fixed-width font
+Fixed-width font
 Make tooltips disappear instantly
 Make "unfinished" report as "failure"
+Don't have example run in browser

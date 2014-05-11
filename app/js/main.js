@@ -184,7 +184,6 @@ $(document).ready(function() {
   });
 
   $(document).keypress(function(eventObject) {
-    console.log(eventObject);
     if (broken) {
       return;
     }
