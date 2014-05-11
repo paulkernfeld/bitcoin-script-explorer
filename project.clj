@@ -5,9 +5,9 @@
             :url "https://www.gnu.org/copyleft/gpl.html"}
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2202"]
-                 [com.cemerick/clojurescript.test "0.2.2"]] ; in dev
+                 [com.cemerick/clojurescript.test "0.3.0"]] ; in dev
   :profiles {:dev {:source-paths ["src" "dev"]
-                   :dependencies [[com.cemerick/clojurescript.test "0.2.2"]]
+                   :dependencies [[com.cemerick/clojurescript.test "0.3.0"]]
              :aliases {"cleantest" ["do" "clean," "cljsbuild" "test"]
                        "production" ["do" "cljsbuild" "once" "production"]}}}
   :plugins [[lein-cljsbuild "1.0.3"]]

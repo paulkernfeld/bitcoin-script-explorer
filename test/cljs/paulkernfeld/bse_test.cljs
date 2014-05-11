@@ -1,7 +1,7 @@
 ;; Copyright 2014 Paul Kernfeld. This file is part of bitcoin-script-explorer,
 ;; which is licensed under the GNU GPL v3. See LICENSE for details.
 
-(ns paulkernfeld.bse-test
+(ns paulkernfeld.bse.bse-test
   (:require-macros [cemerick.cljs.test :refer (deftest is are)])
   (:require [paulkernfeld.bse :as bse]
             [cemerick.cljs.test :as t])
