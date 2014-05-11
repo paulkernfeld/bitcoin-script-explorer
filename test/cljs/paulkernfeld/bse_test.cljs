@@ -47,13 +47,25 @@
 (deftest parse-test
   (is (thrown? js/Error (bse/parse [0xff]))))
 
+(def not-nil? (complement nil?))
+
 (deftest parse-full-test
   (is [] (bse/parse-full []))
 
   (is (thrown? js/Error (bse/parse-full [0x02])))
 
   ;; invalid opcode -> error
-  (is (thrown? js/Error (bse/parse-full [0xff]))))
+  (is (thrown? js/Error (bse/parse-full [0xff])))
+
+  ;; parse an example real transaction, piece by piece
+  ;; OP_PUSH_72
+  (is (not-nil? (bse/parse-full "483045022074f35af390c41ef1f5395d11f6041cf55a6d7dab0acdac8ee746c1f2de7a43b3022100b3dc3d916b557d378268a856b8f9a98b9afaf45442f5c9d726fce343de835a5801")))
+  ;; OP_PUSH_72 OP_PUSH_33
+  (is (not-nil? (bse/parse-full "483045022074f35af390c41ef1f5395d11f6041cf55a6d7dab0acdac8ee746c1f2de7a43b3022100b3dc3d916b557d378268a856b8f9a98b9afaf45442f5c9d726fce343de835a58012102c34538fc933799d972f55752d318c0328ca2bacccd5c7482119ea9da2df70a2f")))
+  ;; 
+  (is (not-nil? (bse/parse-full (bse/from-hex "76a914000011112222333344445555666677778888999988ac"))))
+  (is (not-nil? (bse/parse-full (bse/from-hex "483045022074f35af390c41ef1f5395d11f6041cf55a6d7dab0acdac8ee746c1f2de7a43b3022100b3dc3d916b557d378268a856b8f9a98b9afaf45442f5c9d726fce343de835a58012102c34538fc933799d972f55752d318c0328ca2bacccd5c7482119ea9da2df70a2f76a914000011112222333344445555666677778888999988ac"))))
+)
 
 (deftest execute-full-test
   (is (= [(bse/State. [] "unfinished")]

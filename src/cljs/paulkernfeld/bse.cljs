@@ -40,7 +40,7 @@
 
 (defrecord Op [opcode name execute description])
 
-(defrecord Parsed [op remaining])
+(defrecord Parsed [op op-size])
 
 ; stack is a seq of seqs of bytes
 ; result is "unfinished" "success" or "failure" 
@@ -87,26 +87,27 @@
 (defn op-checksig [state] (State. (conj (:stack state) [1]) (:result state)))
 
 (defn parse [script]
-  (let [opcode (first script)]
+  (let [opcode (first script)
+        take-opcode (take opcode (rest script))]
     (cond
      (and (>= opcode 1) (<= opcode 0x4c))
      (if
          (< (count (rest script)) opcode)
        (throw-patched (str "Not enough bytes to push for OP_PUSH_" opcode))
-       (Parsed. (Op. opcode (str "OP_PUSH_" opcode) (make-op-push (take opcode (rest script))) (make-op-push-description (take opcode (rest script)))) (drop opcode (rest script))))
-     (= opcode 0x51) (Parsed. (Op. 0x51 "OP_TRUE" op-true "Push the value 0x01 onto the stack") (rest script))
-     (= opcode 0x6a) (Parsed. (Op. 0x6a "OP_RETURN" op-return "Mark the transaction as invalid") (rest script))
-     (= opcode 0x76) (Parsed. (Op. 0x76 "OP_DUP" op-dup "Push the top item onto the stack") (rest script))
-     (= opcode 0x88) (Parsed. (Op. 0x88 "OP_EQUALVERIFY" op-equalverify "Returns 1 if the top two items on the stack are exactly equal, 0 otherwise. Then, marks transaction as invalid if top stack value is not true.") (rest script))
-     (= opcode 0xa9) (Parsed. (Op. 0xa9 "OP_HASH160" op-hash160 "Hash the top item on the stack, first with SHA256 then with RIPEMD160.") (rest script))
-     (= opcode 0xac) (Parsed. (Op. 0xac "OP_CHECKSIG" op-checksig "The entire transaction's outputs, inputs, and script are hashed. Returns 1 if signature used by OP_CHECKSIG was a valid signature for this hash and public key. Otherwise, returns 0. NOTE: since this Bitcoin Script implementation does not actually include the whole transaction, this method is mocked out to return true.") (rest script))
+       (Parsed. (Op. opcode (str "OP_PUSH_" opcode) (make-op-push take-opcode) (make-op-push-description take-opcode)) (inc opcode)))
+     (= opcode 0x51) (Parsed. (Op. 0x51 "OP_TRUE" op-true "Push the value 0x01 onto the stack") 1)
+     (= opcode 0x6a) (Parsed. (Op. 0x6a "OP_RETURN" op-return "Mark the transaction as invalid") 1)
+     (= opcode 0x76) (Parsed. (Op. 0x76 "OP_DUP" op-dup "Push the top item onto the stack") 1)
+     (= opcode 0x88) (Parsed. (Op. 0x88 "OP_EQUALVERIFY" op-equalverify "Returns 1 if the top two items on the stack are exactly equal, 0 otherwise. Then, marks transaction as invalid if top stack value is not true.") 1)
+     (= opcode 0xa9) (Parsed. (Op. 0xa9 "OP_HASH160" op-hash160 "Hash the top item on the stack, first with SHA256 then with RIPEMD160.") 1)
+     (= opcode 0xac) (Parsed. (Op. 0xac "OP_CHECKSIG" op-checksig "The entire transaction's outputs, inputs, and script are hashed. Returns 1 if signature used by OP_CHECKSIG was a valid signature for this hash and public key. Otherwise, returns 0. NOTE: since this Bitcoin Script implementation does not actually include the whole transaction, this method is mocked out to return true.") 1)
      :else (throw-patched (str "Opcode " (to-hex [opcode]) " isn't supported yet. Feel free to submit a pull request, though!")))))
 
 (defn parse-full [script]
   (if (empty? script)
     []
     (let [script-parsed (parse script)]
-      (cons (:op script-parsed) (parse-full (:remaining script-parsed))))))
+      (cons (:op script-parsed) (parse-full (drop (:op-size script-parsed) script))))))
 
 (defn parse-js [parsed]
   (apply array parsed))
