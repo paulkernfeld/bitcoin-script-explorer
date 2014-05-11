@@ -93,8 +93,7 @@
      (if
          (< (count (rest script)) opcode)
        (throw-patched (str "Not enough bytes to push for OP_PUSH_" opcode))
-;;       (Parsed. (Op. opcode (str "OP_PUSH_" opcode "_" (to-hex (take opcode(rest script)))) (make-op-push (take opcode(rest script)))) (drop opcode (rest script))))
-       (Parsed. (Op. opcode (str "OP_PUSH_" opcode) (make-op-push (take opcode(rest script))) (make-op-push-description (take opcode(rest script)))) (drop opcode (rest script))))
+       (Parsed. (Op. opcode (str "OP_PUSH_" opcode) (make-op-push (take opcode (rest script))) (make-op-push-description (take opcode (rest script)))) (drop opcode (rest script))))
      (= opcode 0x51) (Parsed. (Op. 0x51 "OP_TRUE" op-true "Push the value 0x01 onto the stack") (rest script))
      (= opcode 0x6a) (Parsed. (Op. 0x6a "OP_RETURN" op-return "Mark the transaction as invalid") (rest script))
      (= opcode 0x76) (Parsed. (Op. 0x76 "OP_DUP" op-dup "Push the top item onto the stack") (rest script))
@@ -106,7 +105,8 @@
 (defn parse-full [script]
   (if (empty? script)
     []
-    (cons (:op (parse script)) (parse-full (:remaining (parse script))))))
+    (let [script-parsed (parse script)]
+      (cons (:op script-parsed) (parse-full (:remaining script-parsed))))))
 
 (defn parse-js [parsed]
   (apply array parsed))
