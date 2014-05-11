@@ -103,11 +103,22 @@
      (= opcode 0xac) (Parsed. (Op. 0xac "OP_CHECKSIG" op-checksig "The entire transaction's outputs, inputs, and script are hashed. Returns 1 if signature used by OP_CHECKSIG was a valid signature for this hash and public key. Otherwise, returns 0. NOTE: since this Bitcoin Script implementation does not actually include the whole transaction, this method is mocked out to return true.") 1)
      :else (throw-patched (str "Opcode " (to-hex [opcode]) " isn't supported yet. Feel free to submit a pull request, though!")))))
 
+;; Summarize the part of the script that is being parsed, for readability
+(defn summary [script] 
+  (if (<= (count script) 12)
+    ;; If it's short, show the whole thing
+    (to-hex script)
+    ;; If it's long, just show the start and end
+    (str (to-hex (take 6 script)) "..." (to-hex (take-last 6 script)))))
+
 (defn parse-full [script]
   (if (empty? script)
     []
-    (let [script-parsed (parse script)]
-      (cons (:op script-parsed) (parse-full (drop (:op-size script-parsed) script))))))
+    (try 
+      (let [script-parsed (parse script)]
+        (cons (:op script-parsed) (parse-full (drop (:op-size script-parsed) script))))
+      (catch js/Object e
+        (throw-patched (str e " at parse-full(" (summary script) ")<br>"))))))
 
 (defn parse-js [parsed]
   (apply array parsed))
