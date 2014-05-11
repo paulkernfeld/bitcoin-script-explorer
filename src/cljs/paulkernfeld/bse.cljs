@@ -101,7 +101,7 @@
      (= opcode 0x88) (Parsed. (Op. 0x88 "OP_EQUALVERIFY" op-equalverify "Returns 1 if the top two items on the stack are exactly equal, 0 otherwise. Then, marks transaction as invalid if top stack value is not true.") (rest script))
      (= opcode 0xa9) (Parsed. (Op. 0xa9 "OP_HASH160" op-hash160 "Hash the top item on the stack, first with SHA256 then with RIPEMD160.") (rest script))
      (= opcode 0xac) (Parsed. (Op. 0xac "OP_CHECKSIG" op-checksig "The entire transaction's outputs, inputs, and script are hashed. Returns 1 if signature used by OP_CHECKSIG was a valid signature for this hash and public key. Otherwise, returns 0. NOTE: since this Bitcoin Script implementation does not actually include the whole transaction, this method is mocked out to return true.") (rest script))
-     :else (throw-patched (str "Unsupported opcode: " (to-hex [opcode]))))))
+     :else (throw-patched (str "Opcode " (to-hex [opcode]) " isn't supported yet. Feel free to submit a pull request, though!")))))
 
 (defn parse-full [script]
   (if (empty? script)
